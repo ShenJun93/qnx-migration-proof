@@ -1,0 +1,6 @@
+# SYNTHETIC migration fixture, not real QNX source.
+[data=c]
+io-pkt-v6-hc
+devnp-e1000.so
+dhclient
+/usr/lib/qcrypto-openssl.so=qcrypto-openssl.so

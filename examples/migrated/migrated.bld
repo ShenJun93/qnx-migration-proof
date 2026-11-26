@@ -1,0 +1,4 @@
+# SYNTHETIC clean fixture, not a bootable QNX image.
+io-sock
+devs-e1000.so
+dhcpcd
