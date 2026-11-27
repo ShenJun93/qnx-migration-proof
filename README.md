@@ -4,6 +4,17 @@
 
 A local engineering review tool for migration from QNX SDP 7.1 to 8.0. It helps developers inspect legacy source and build configurations, connect candidates to installed SDK evidence, plan remediation, and reproduce controlled build diagnostics without confusing static analysis with runtime validation.
 
+## Why it matters
+
+| Evidence | Observed result |
+| --- | --- |
+| External repository review | 1,884 readable source/config files across four pinned repositories |
+| Scanner improvement | 6 to 19 review candidates on the same checkouts |
+| Real SDK experiments | 5 controlled migration pairs, 10 expected build observations |
+| Reproduction | 76 automated host tests; fresh SDK lab and tamper rejection |
+
+The additional findings include 12 deprecated C++ language-option references and one legacy ISR call. They are review locations, not 13 confirmed defects. A separate controlled QCC compile and link probe verifies the deprecation warning and a clean alternative; it does not validate an upstream application's runtime. See the [external benchmark](docs/EXTERNAL_BENCHMARK.md) for pinned sources and reproduction commands.
+
 ## Quick start (no SDK required)
 
 Requires Python 3.10+; no Python packages or network service.
@@ -38,13 +49,13 @@ Use the codelab's final exercise to create an offline dashboard combining a scan
 | Image data=c attribute | Warning | Clean diagnostic; identical minimal IFS |
 | Legacy networking stack | Packaging fails | Packages io-sock |
 
-These five pairs were actually built on the stated SDK; all ten observations matched expectations in fresh-checkout acceptance on November 26, 2026. The images are not bootable operating systems. No target binary was executed. Results depend on installed SDK packages and version.
+These five pairs were actually built on the stated SDK; all ten observations matched expectations in fresh-checkout acceptance on November 27, 2026. The images are not bootable operating systems. No target binary was executed. Results depend on installed SDK packages and version.
 
 A separate read-only scan of parallel public QNX 7.1/8.0 image configurations at upstream commit [d71f233](https://github.com/Deniz-Eren/workspace/tree/d71f233ffffec0db977fcbf0ba650e61de6e777b) observed 20 versus 0 candidates across 7 versus 8 recognized files. This is not a chronological migration, a project build, or a precision/recall benchmark. Upstream source is not bundled.
 
 ## Architecture
 
-- qnx_migration_audit.py: nine documentation-backed rules and scoped coverage.
+- qnx_migration_audit.py: ten documentation-backed rules and scoped coverage.
 - qnx_migration_report.py: comparison and named-file SDK inventory.
 - qnx_evidence_receipt.py: canonical SHA-256 receipt and scoped replay.
 - qnx_migration_plan.py: review tasks and required validation.

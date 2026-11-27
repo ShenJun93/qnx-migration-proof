@@ -12,7 +12,7 @@ TITLES = {
     "QNX8-NET-003":"DHCP and DNS", "QNX8-CRYPTO-001":"Cryptography plugin",
     "QNX8-BLD-001":"Image buildfile", "QNX8-SRC-001":"Interrupt lifecycle",
     "QNX8-SRC-002":"Driver identity API", "QNX8-SRC-003":"I2C commands",
-    "QNX8-CC-001":"Compiler flags",
+    "QNX8-CC-001":"Compiler flags", "QNX8-CC-002":"C++ toolchain",
 }
 STATES = {
     "baseline_only":"Baseline only",

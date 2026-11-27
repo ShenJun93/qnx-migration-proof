@@ -42,8 +42,12 @@ CHECKS = {
         "Review I2C request layout, slave addressing, command and buffer sizes.",
         "Compile and link; test actual device transactions and error handling.",
         "hardware_and_runtime"),
+    "QNX8-CC-002": (
+        "Review compiler and linker command roles; avoid a blind language-flag replacement in link-only commands.",
+        "Build the actual C++ target and verify linkage and coverage of C++ runtime dependencies.",
+        "build"),
     "QNX8-CC-001": (
-        "Review and remove the obsolete -auxbase option from affected build settings.",
+        "Review and remove obsolete -auxbase/-auxbase-strip from affected coverage settings.",
         "Rebuild the actual project and check code coverage settings if applicable.",
         "build"),
 }
