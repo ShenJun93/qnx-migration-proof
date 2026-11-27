@@ -1,3 +1,5 @@
+import contextlib
+import io
 import tempfile
 import unittest
 from pathlib import Path
@@ -28,15 +30,19 @@ class DashboardTests(unittest.TestCase):
     def test_no_overwrite(self):
         out=self.root/"review.html"
         out.write_text("existing")
-        with self.assertRaises(SystemExit):
+        stderr=io.StringIO()
+        with contextlib.redirect_stderr(stderr), self.assertRaises(SystemExit) as raised:
             main([str(self.src),"--output",str(out)])
+        self.assertEqual(raised.exception.code,2)
+        self.assertIn("error:",stderr.getvalue())
         self.assertEqual(out.read_text(),"existing")
     def test_empty(self):
         (self.src/"build").write_text("io-sock")
         self.assertIn("No scoped migration candidates observed",render(make_plan(self.src)))
     def test_creates_page(self):
         out=self.root/"review.html"
-        self.assertEqual(main([str(self.src),"--output",str(out)]),0)
+        with contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(main([str(self.src),"--output",str(out)]),0)
         self.assertTrue(out.read_text().startswith("<!doctype html>"))
 if __name__=="__main__":
     unittest.main()

@@ -8,7 +8,7 @@ This release expands ISR API coverage and distinguishes deprecated C++ driver op
 
 Clone these public repositories into separate directories, check out the exact commits, and run the scanner from the tool repository root. Do not run third-party build scripts or redistribute their source.
 
-| Public repository | Pinned commit | Files inspected | Submitted release | Candidate |
+| Public repository | Pinned commit | Files inspected | V1 | V2 |
 | --- | --- | ---: | ---: | ---: |
 | [QNXCarSim](https://github.com/sidbmw/QNXCarSim) | 38178ab49cba5523ac7b8d0f7e85fdbad7e45601 | 11 | 0 | 0 |
 | [qnx-screen](https://github.com/Robin329/qnx-screen) | 0cab755cb8139d47df971b0fe8aeef26eea47903 | 16 | 3 | 6 |
@@ -19,7 +19,27 @@ Clone these public repositories into separate directories, check out the exact c
     python qnx_migration_audit.py PATH_TO_CHECKOUT --format json
     python qnx_review_dashboard.py PATH_TO_CHECKOUT --output review.html
 
-Use the public submitted commit 723be5e258475a91a2cc9c12e90b6e48fdcfccbc for the original scan. This release adds 12 deprecated -lang-c++ references and one legacy InterruptAttach_r call. Three existing -auxbase-strip locations and three io-pkt header path references remain visible. Counts refer to rule/location pairs, not independent defects. Mixed-version repositories are not a labeled compatibility dataset.
+For a reproducible source-only comparison, use separate directories. From a fresh scratch directory:
+
+    git clone --no-recurse-submodules https://github.com/ShenJun93/qnx-migration-proof.git tool-v1
+    git -C tool-v1 checkout --detach 723be5e258475a91a2cc9c12e90b6e48fdcfccbc
+    git clone --no-recurse-submodules https://github.com/ShenJun93/qnx-migration-proof.git tool-v2
+    git -C tool-v2 checkout --detach a004ad9f1dcbb502328bf028799f7eef0478f437
+    git clone --no-recurse-submodules https://github.com/sidbmw/QNXCarSim.git car
+    git -C car checkout --detach 38178ab49cba5523ac7b8d0f7e85fdbad7e45601
+    git clone --no-recurse-submodules https://github.com/Robin329/qnx-screen.git screen
+    git -C screen checkout --detach 0cab755cb8139d47df971b0fe8aeef26eea47903
+    git clone --no-recurse-submodules https://github.com/qnx-ports/build-files.git ports
+    git -C ports checkout --detach 44f037160c281708a5ac107e852abdecba7a15a5
+    git clone --no-recurse-submodules https://github.com/MicrochipTech/WILC1000_QNX_Driver.git wilc
+    git -C wilc checkout --detach bf89098012b6c615d86b5f711e4bf8796bafa1db
+
+For each checkout (car, screen, ports, wilc), run both scanner versions, substituting the directory name:
+
+    python tool-v1/qnx_migration_audit.py screen --format json
+    python tool-v2/qnx_migration_audit.py screen --format json
+
+Keep the repositories unmodified. Use a host with Python 3.10+ and Git. No SDK is required for the comparison. Compare the coverage and findings fields; a different source checkout is not a valid comparison. This release adds 12 deprecated -lang-c++ references and one legacy InterruptAttach_r call. Three existing -auxbase-strip locations and three io-pkt header path references remain visible. Counts refer to rule/location pairs, not independent defects. Mixed-version repositories are not a labeled compatibility dataset.
 
 ## Controlled QNX SDK observations
 

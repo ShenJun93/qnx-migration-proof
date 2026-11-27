@@ -4,6 +4,14 @@
 
 A local engineering review tool for migration from QNX SDP 7.1 to 8.0. It helps developers inspect legacy source and build configurations, connect candidates to installed SDK evidence, plan remediation, and reproduce controlled build diagnostics without confusing static analysis with runtime validation.
 
+## See it in action
+
+[Watch the 89-second V2 demonstration](https://youtu.be/oZo-Qxmirrg) | [Download the offline sample dashboard](https://github.com/ShenJun93/qnx-migration-proof/raw/refs/heads/main/docs/demo/review.html) | [Read the hands-on codelab](docs/CODELAB_QNX8_MIGRATION.md)
+
+![Actual dashboard showing a migration review task and its outstanding validation](docs/demo/dashboard.png)
+
+The sample is an actual generated HTML snapshot using the repository's original synthetic fixtures, with no SDK inventory or verified lab panel. Download the raw HTML file, save it as review.html, and open it in a browser. No install, account or network connection is needed after download. Try filtering by rule and expanding review tasks. The eight candidates in this sample are separate from the external benchmark below; the project validation counter is zero. The sample is not a live scan or a runtime verdict.
+
 ## Why it matters
 
 | Evidence | Observed result |
